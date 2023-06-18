@@ -1,0 +1,124 @@
+@startuml
+
+skin rose
+left to right direction
+services.SistemaImpl"1"--|>"1"services.Sistema:implementa
+services.SistemaImpl"1"-->"1"services.Utils:usa
+Main"1"-->"1"services.SistemaImpl:usa
+
+services.SistemaImpl"1"-->"1"models.listaPokemon:usa
+models.listaPokemon"1"-->"*"models.NodoDoble:gestiona
+models.NodoDoble"1"-->"1"models.pokemon:contiene
+models.pokemon "1"<|--"0..1"models.PrimerEvolucion:extends
+models.pokemon"1"<|--"0..1"models.SegundaEvolucion:extends
+models.pokemon"1"<|--"1"models.Basico:extends
+
+
+
+class Main
+{
+-sistema:SistemaImpl
+}
+package services
+{
+interface Sistema <<interface>>
+{
++busquedaPersonalizada():void
++busquedaPokemonTipo():void
++desplegarPokemonPrimerEvolucion():void
++desplegarPorID():void
++desplegarAlfabeticamente():void
+}
+class SistemaImpl
+{
+-listaArray: ArrayList<pokemon>
+-listaLinked: LinkedList<pokemon>
+-lista:listaPokemon
++cargarDatos():void
++cerrarSistema():void
++ordenarLista(lista: ArrayList<pokemon>):LinkedList<pokemon>
++ordenarListaIdCreciente(lista: ArrayList<pokemon>):LinkedList<pokemon>
++ordenarListaIdDecreciente(lista: ArrayList<pokemon>):LinkedList<pokemon>
++desplegarAlfabeticamente():void
++desplegarPorID():void
++desplegarPokemonPrimerEvolucion():void
++busquedaPersonalizada():void
++busquedaPokemonTipo():void
+}
+class Utils
+{
++limpiarString(string: String):String
++toInteger(text: String):Integer
+}
+
+}
+
+
+
+package models
+{
+class Basico
+{
+-primerEvolucion:String
+-segundaEvolucion:String
+-tercerEvolucion:String
++Basico(id: int,nombre: String, etapa: String, tipo1: String, tipo2: String, primerEvolucion: String, segundaEvolucion: String, tercerEvolucion: String)
++getPrimerEvolucion():String
++getSegundaEvolucion():String
++getTercerEvolucion():String
+}
+class listaPokemon
+{
+-first:NodoDoble
+-last:NodoDoble
++listaPokemon()
++insertarAlFinallast(pokemon: pokemon):void
++buscarNombre(nombre: String):void
++buscarId(id:int):void
+}
+class NodoDoble
+{
+-pokemon: pokemon
+-anterior:NodoDoble
+-siguiente:NodoDoble
++NodoDoble(pokemon: pokemon)
++getPokemon():pokemon
++setDato(pokemon: pokemon):void
++getAnterior():NodoDoble
++setAnterior(anterior: NodoDoble):void
++getSiguiente():NodoDoble
++setSiguiente(siguiente: NodoDoble)void
+}
+class pokemon
+{
+-id:int
+-nombre:String
+-etapa:String
+-tipo1:String
+-tipo2:String
++pokemon(id: int, nombre: String, etapa: String, tipo1:String, tipo2: String)
++getId():int
++getNombre():String
++getEtapa():String
++getTipo1():String
++getTipo2():String
+}
+class PrimerEvolucion
+{
+-evolucionAnterior:String
+-evolucionSiguiente:String
++primerEvolucion(id: int, nombre: String, etapa: String, tipo1:String, tipo2: String, evolucionAnterior: String, evolucionSiguiente: String)
++getEvolucionAnterior():String
++getEvolucionSiguiente():String
+}
+class SegundaEvolucion
+{
+-evolucionBasica:String
+-evolucionAnterior:String
++SegundaEvolucion(id: int, nombre: String, etapa: String, tipo1:String, tipo2: String, evolucionAnterior: String, evolucionBasica: String)
++getEvolucionBasica():String
++getEvolucionAnterior():String
+
+}
+}
+@enduml

@@ -1,0 +1,46 @@
+
+@startuml
+
+skin rose
+left to right direction
+
+usuario"*"-->"1"Sistema:usa
+Sistema"1"-->"*"Pokemon:contiene
+Pokemon"1"-->"1"Basico:tiene
+Pokemon"1"-->"0..1"primeraEvolucion:puede tener
+Pokemon"1"-->"0..1"segundaEvolucion:puede tener
+class usuario
+{
+
+}
+class Sistema
+{
+listaArray
+listaLinked
+lista
+}
+class Pokemon
+{
+id
+nombre
+etapa
+tipo1
+tipo2
+}
+class Basico
+{
+primeraEvolucion
+segundaEvolucion
+terceraEvolucion
+}
+class primeraEvolucion
+{
+evolucionAnterior
+evolucionSiguiente
+}
+class segundaEvolucion
+{
+evolucionBasica
+evolucionAnterior
+}
+@enduml
